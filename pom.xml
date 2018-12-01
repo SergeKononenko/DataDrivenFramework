@@ -9,6 +9,14 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.8</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>3.4.0</version>
@@ -82,45 +90,38 @@
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>3.6</version>
 		</dependency>
-
-
-		<build>
-			<plugins>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.18.1</version>
-					<configuration>
-						<testFailureIgnore> false </testFailureIgnore>
-						<suiteXmlFiles>
-							<suiteXmlFile>src/test/resources/runner/testng.xml</suiteXmlFile>
-
-						</suiteXmlFiles>
-					</configuration>
-
-
-
-
-
-				</plugin>
-
-
-			</plugins>
-
-
-			<testResources>
-				<testResource>
-					<directory>src/test/resources/properties</directory>
-					<includes>
-						<include>log4j.properties</include>
-					</includes>
-				</testResource>
-			</testResources>
-
-
-		</build>
 	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<testFailureIgnore> false </testFailureIgnore>
+					<suiteXmlFiles>
+						<suiteXmlFile>src/test/resources/runner/testng.xml</suiteXmlFile>
+
+					</suiteXmlFiles>
+				</configuration>
+
+			</plugin>
+		</plugins>
+
+		<testResources>
+			<testResource>
+				<directory>src/test/resources/properties</directory>
+				<includes>
+					<include>log4j.properties</include>
+				</includes>
+			</testResource>
+		</testResources>
+
+
+	</build>
+
 
 
 

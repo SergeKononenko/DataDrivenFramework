@@ -19,7 +19,7 @@ public class TestProperties {
 				System.getProperty("user.dir") + "\\src\\test\\resources\\properties\\Locators.properties");
 		OR.load(orFile);
 		
-		
+		System.out.println(OR.getProperty("ManagerLoginButton_xpath"));
 		
 		
 	}
