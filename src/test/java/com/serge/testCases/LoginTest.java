@@ -17,8 +17,8 @@ public class LoginTest extends TestBase {
 				.click();
 
 		Assert.assertTrue(
-				isElementPresent(By.xpath(
-						locators.getProperty("AddCustomerButton_xpath"))),
+				isElementPresent(By.cssSelector(
+						locators.getProperty("AddCustomerTab_css"))),
 				"Login was not successful");
 
 	}

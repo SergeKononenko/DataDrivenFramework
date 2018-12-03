@@ -10,7 +10,12 @@
 		</classes>
 	</test> <!-- Test -->
 	
-	
+	<test thread-count="5" name="addCustomer">
+		<classes>
+			<class name="com.serge.testCases.AddCustomer" />
+			
+		</classes>
+	</test> <!-- Test -->
 	
 	
 </suite> <!-- Suite -->

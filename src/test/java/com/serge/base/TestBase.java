@@ -12,9 +12,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import com.serge.uilities.ExcelReader;
 
 public class TestBase {
 
@@ -70,10 +72,11 @@ public class TestBase {
 		}
 
 		driver.get(config.getProperty("mainPageURL"));
-		driver.manage().window().maximize();
+		//driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(
 				Integer.parseInt(config.getProperty("implicitWait")),
 				TimeUnit.SECONDS);
+		wait = new WebDriverWait(driver, 5);
 
 	}
 
@@ -102,4 +105,11 @@ public class TestBase {
 	public static Properties locators;
 	public static FileInputStream fis;
 	public static Logger log = Logger.getLogger("devpinoyLogger");
+	public static ExcelReader excel = new ExcelReader(
+			System.getProperty("user.dir")
+					+ "\\src\\test\\resources\\excel\\TestData.xlsx");
+	public static WebDriverWait wait;
+	
+	
+	
 }
