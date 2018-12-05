@@ -1,11 +1,8 @@
 package com.serge.testCases;
 
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -17,16 +14,11 @@ public class AddCustomer extends TestBase {
 	public void addCustomer(String firstName, String lastName,
 			String postalCode, String alertText) throws InterruptedException {
 
-		driver.findElement(
-				By.cssSelector(locators.getProperty("AddCustomerTab_css"))).click();
-		driver.findElement(
-				By.xpath(locators.getProperty("FirstNameInput_xpath"))).sendKeys(firstName);
-		driver.findElement(
-				By.xpath(locators.getProperty("LastNameInput_xpath"))).sendKeys(lastName);
-		driver.findElement(
-				By.xpath(locators.getProperty("PostalCode_xpath"))).sendKeys(postalCode);
-		driver.findElement(
-				By.cssSelector(locators.getProperty("AddCustomerButton_css"))).click();
+		click("AddCustomerTab_css");
+		type("FirstNameInput_xpath", firstName);
+		type("LastNameInput_xpath", lastName);
+		type("PostalCode_xpath", postalCode);
+		click("AddCustomerButton_css");
 		
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 		

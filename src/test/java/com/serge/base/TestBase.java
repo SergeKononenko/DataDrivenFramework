@@ -18,6 +18,7 @@ import org.testng.annotations.BeforeSuite;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import com.serge.uilities.ExcelReader;
 import com.serge.uilities.ExtentManager;
 
@@ -75,7 +76,7 @@ public class TestBase {
 		}
 
 		driver.get(config.getProperty("mainPageURL"));
-		//driver.manage().window().maximize();
+		// driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(
 				Integer.parseInt(config.getProperty("implicitWait")),
 				TimeUnit.SECONDS);
@@ -92,16 +93,54 @@ public class TestBase {
 		log.debug("Test Suite completed.");
 	}
 
-	public boolean isElementPresent(By by) {
+	public boolean isElementPresent(String locator) {
 
 		try {
-			driver.findElement(by);
+			
+			if (locator.endsWith("_css")) {
+				driver.findElement(By.cssSelector(locators.getProperty(locator)));
+			} else if (locator.endsWith("_xpath")) {
+				driver.findElement(By.xpath(locators.getProperty(locator)));
+			} else if (locator.endsWith("_id")) {
+				driver.findElement(By.id(locators.getProperty(locator)));
+			}
+			
 			return true;
 		} catch (NoSuchElementException e) {
 			return false;
 		}
 
 	}
+
+	public void click(String locator) {
+
+		if (locator.endsWith("_css")) {
+			driver.findElement(By.cssSelector(locators.getProperty(locator)))
+					.click();
+		} else if (locator.endsWith("_xpath")) {
+			driver.findElement(By.xpath(locators.getProperty(locator))).click();
+		} else if (locator.endsWith("_id")) {
+			driver.findElement(By.id(locators.getProperty(locator))).click();
+		}
+		test.log(LogStatus.INFO, "Clicking: " + locator);
+
+	}
+
+	public void type(String locator, String text) {
+
+		if (locator.endsWith("_css")) {
+			driver.findElement(By.cssSelector(locators.getProperty(locator))).sendKeys(text);
+		} else if (locator.endsWith("_xpath")) {
+			driver.findElement(By.xpath(locators.getProperty(locator))).sendKeys(text);
+		} else if (locator.endsWith("_id")) {
+			driver.findElement(By.id(locators.getProperty(locator))).sendKeys(text);
+		}
+		test.log(LogStatus.INFO,
+				"Typing in: " + locator + ", entered value: " + text);
+
+	}
+	
+	
 
 	public static WebDriver driver;
 	public static Properties config;
@@ -114,6 +153,5 @@ public class TestBase {
 	public static WebDriverWait wait;
 	public ExtentReports rep = ExtentManager.getInstance();
 	public static ExtentTest test;
-	
-	
+
 }

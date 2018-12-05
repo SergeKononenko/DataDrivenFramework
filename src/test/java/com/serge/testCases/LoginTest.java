@@ -1,6 +1,5 @@
 package com.serge.testCases;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,14 +10,11 @@ public class LoginTest extends TestBase {
 	@Test
 	public void loginAsManager() throws InterruptedException {
 
-		log.debug("Inside Login test.");
-		driver.findElement(
-				By.xpath(locators.getProperty("ManagerLoginButton_xpath")))
-				.click();
+		log.debug("Inside Login test.");// Application log example
 
-		Assert.assertTrue(
-				isElementPresent(By.cssSelector(
-						locators.getProperty("AddCustomerTab_css"))),
+		click("ManagerLoginButton_css");
+
+		Assert.assertTrue(isElementPresent("AddCustomerTab_css"),
 				"Login was not successful");
 
 	}
