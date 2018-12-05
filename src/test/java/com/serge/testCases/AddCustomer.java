@@ -3,14 +3,14 @@ package com.serge.testCases;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.serge.base.TestBase;
+import com.serge.uilities.TestUtil;
 
 public class AddCustomer extends TestBase {
 
-	@Test(dataProvider = "getData")
+	@Test(dataProviderClass=TestUtil.class, dataProvider="dp")
 	public void addCustomer(String firstName, String lastName,
 			String postalCode, String alertText) throws InterruptedException {
 
@@ -37,27 +37,6 @@ public class AddCustomer extends TestBase {
 		
 	}
 
-	@DataProvider
-	public Object[][] getData() {
-
-		String sheetName = "AddCustomer";
-		int rows = excel.getRowCount(sheetName);
-		int cols = excel.getColumnCount(sheetName);
-
-		Object[][] data = new Object[rows - 1][cols];
-
-		for (int rowNum = 2; rowNum <= rows; rowNum++) {
-			for (int colNum = 0; colNum < cols; colNum++) {
-
-				// data[0][0]
-				data[rowNum - 2][colNum] = excel.getCellData(sheetName, colNum,
-						rowNum);
-
-			}
-
-		}
-
-		return data;
-	}
+	
 
 }
