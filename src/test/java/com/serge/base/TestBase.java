@@ -13,6 +13,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -21,6 +23,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import com.serge.uilities.ExcelReader;
 import com.serge.uilities.ExtentManager;
+import com.serge.uilities.TestUtil;
 
 public class TestBase {
 
@@ -96,15 +99,16 @@ public class TestBase {
 	public boolean isElementPresent(String locator) {
 
 		try {
-			
+
 			if (locator.endsWith("_css")) {
-				driver.findElement(By.cssSelector(locators.getProperty(locator)));
+				driver.findElement(
+						By.cssSelector(locators.getProperty(locator)));
 			} else if (locator.endsWith("_xpath")) {
 				driver.findElement(By.xpath(locators.getProperty(locator)));
 			} else if (locator.endsWith("_id")) {
 				driver.findElement(By.id(locators.getProperty(locator)));
 			}
-			
+
 			return true;
 		} catch (NoSuchElementException e) {
 			return false;
@@ -129,18 +133,53 @@ public class TestBase {
 	public void type(String locator, String text) {
 
 		if (locator.endsWith("_css")) {
-			driver.findElement(By.cssSelector(locators.getProperty(locator))).sendKeys(text);
+			driver.findElement(By.cssSelector(locators.getProperty(locator)))
+					.sendKeys(text);
 		} else if (locator.endsWith("_xpath")) {
-			driver.findElement(By.xpath(locators.getProperty(locator))).sendKeys(text);
+			driver.findElement(By.xpath(locators.getProperty(locator)))
+					.sendKeys(text);
 		} else if (locator.endsWith("_id")) {
-			driver.findElement(By.id(locators.getProperty(locator))).sendKeys(text);
+			driver.findElement(By.id(locators.getProperty(locator)))
+					.sendKeys(text);
 		}
 		test.log(LogStatus.INFO,
 				"Typing in: " + locator + ", entered value: " + text);
 
 	}
-	
-	
+
+	public static void verifyEquals(String actual, String expected) {
+
+		try {
+
+			Assert.assertEquals(actual, expected);
+
+		} catch (Throwable t) {
+
+			TestUtil.cuptureScreenshot();
+
+			// ReportNG
+			Reporter.log(
+					"<br>Verification failure: " + t.getMessage() + "<br>");
+			Reporter.log("<a target=\"_blank\" href="
+					+ System.getProperty("user.dir") + "\\screenshots\\"
+					+ TestUtil.screenshotName + ">" + TestUtil.screenshotName
+					+ "</a><br>");
+			Reporter.log("<a target=\"_blank\" href="
+					+ System.getProperty("user.dir") + "\\screenshots\\"
+					+ TestUtil.screenshotName + "><img src="
+					+  System.getProperty("user.dir") + "\\screenshots\\"
+					+ TestUtil.screenshotName
+					+ " height=200 width=400></img></a>");
+			// Extent Report
+
+			test.log(LogStatus.FAIL, "Verification failure: " + t.getMessage());
+			test.log(LogStatus.FAIL,
+					test.addScreenCapture(System.getProperty("user.dir")
+							+ "\\screenshots\\" + TestUtil.screenshotName));
+
+		}
+
+	}
 
 	public static WebDriver driver;
 	public static Properties config;

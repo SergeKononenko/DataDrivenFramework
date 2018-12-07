@@ -12,7 +12,7 @@ import com.serge.uilities.TestUtil;
 public class CustomListeners extends TestBase implements ITestListener {
 
 	public void onTestStart(ITestResult result) {
-		
+
 		test = rep.startTest(result.getName().toUpperCase());
 
 	}
@@ -30,21 +30,27 @@ public class CustomListeners extends TestBase implements ITestListener {
 
 		System.setProperty("org.uncommons.reportng.escape-output", "false");
 		TestUtil.cuptureScreenshot();
-		
-		
+
+		// Extent log
 		test.log(LogStatus.FAIL, result.getName().toUpperCase() + "Test Failed:"
 				+ result.getThrowable());
-		test.log(LogStatus.FAIL, test.addScreenCapture(TestUtil.screenshotName));
-		
-		Reporter.log("<br><br>Click to see Screenshot ... ");
-		
-		Reporter.log("<a target=\"_blank\" href=" + TestUtil.screenshotName
-				+ ">" + TestUtil.screenshotName + "</a><br>");
-		Reporter.log("<a target=\"_blank\" href=" + TestUtil.screenshotName
-				+ "><img src=" + TestUtil.screenshotName
-				+ " height=200 width=400></img></a>");
+		test.log(LogStatus.FAIL,
+				test.addScreenCapture( System.getProperty("user.dir")
+						+ "\\screenshots\\" + TestUtil.screenshotName));
 
-		
+		// ReportNg
+		Reporter.log("<br><br>Click to see Screenshot ... ");
+
+		Reporter.log(
+				"<a target=\"_blank\" href=" + System.getProperty("user.dir")
+						+ "\\screenshots\\" + TestUtil.screenshotName + ">"
+						+ TestUtil.screenshotName + "</a><br>");
+		Reporter.log("<a target=\"_blank\" href="
+				+ System.getProperty("user.dir") + "\\screenshots\\"
+				+ TestUtil.screenshotName + "><img src="
+				+  System.getProperty("user.dir") + "\\screenshots\\"
+				+ TestUtil.screenshotName + " height=200 width=400></img></a>");
+
 		rep.endTest(test);
 		rep.flush();
 

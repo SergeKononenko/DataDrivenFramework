@@ -30,7 +30,7 @@ public class TestUtil extends TestBase {
 		screenshotName = format.format(new Date()) + ".jpg";
 		try {
 			FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir")
-					+ "\\target\\surefire-reports\\html\\" + screenshotName));
+					+ "\\screenshots\\" + screenshotName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
