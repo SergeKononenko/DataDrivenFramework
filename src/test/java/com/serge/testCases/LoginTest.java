@@ -20,7 +20,7 @@ public class LoginTest extends TestBase {
 		Assert.assertTrue(isElementPresent("AddCustomerTab_css"),
 				"Login was not successful");
 		
-		Assert.fail("Login not successful");
+		//Assert.fail("Login not successful");
 
 	}
 }

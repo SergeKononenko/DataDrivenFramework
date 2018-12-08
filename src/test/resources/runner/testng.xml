@@ -21,6 +21,13 @@
 
 		</classes>
 	</test> <!-- Test -->
+	
+	<test thread-count="5" name="openAccount">
+		<classes>
+			<class name="com.serge.testCases.OpenAccount" />
+
+		</classes>
+	</test> <!-- Test -->
 
 
 </suite> <!-- Suite -->

@@ -23,14 +23,11 @@ public class AddCustomer extends TestBase {
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 		
 		Assert.assertTrue(alert.getText().contains(alertText));
-		
-		Thread.sleep(200);
-		
 		alert.accept();
 		
 		//Reporter.log("Success!"); //ReportNG Log
 		
-		Assert.fail("Not Real FAil");
+		//Assert.fail("Not Real FAil");
 		
 		
 		

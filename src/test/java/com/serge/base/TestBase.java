@@ -10,8 +10,10 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -82,7 +84,7 @@ public class TestBase {
 		// driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(
 				Integer.parseInt(config.getProperty("implicitWait")),
-				TimeUnit.SECONDS);
+				TimeUnit.MILLISECONDS);
 		wait = new WebDriverWait(driver, 5);
 
 	}
@@ -180,6 +182,23 @@ public class TestBase {
 		}
 
 	}
+	
+	public void select(String locator, String value) {
+				
+		if (locator.endsWith("_css")) {
+			dropdown = driver.findElement(By.cssSelector(locators.getProperty(locator)));
+		} else if (locator.endsWith("_xpath")) {
+			dropdown = driver.findElement(By.xpath(locators.getProperty(locator)));
+		} else if (locator.endsWith("_id")) {
+			dropdown = driver.findElement(By.id(locators.getProperty(locator)));
+		}
+		
+		Select select = new Select(dropdown);
+		select.selectByVisibleText(value);
+		test.log(LogStatus.INFO,
+				"Selected from dropdown: " + locator + ", picked option: " + value);
+		
+	}
 
 	public static WebDriver driver;
 	public static Properties config;
@@ -192,5 +211,6 @@ public class TestBase {
 	public static WebDriverWait wait;
 	public ExtentReports rep = ExtentManager.getInstance();
 	public static ExtentTest test;
+	public WebElement dropdown;
 
 }
