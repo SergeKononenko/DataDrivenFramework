@@ -86,6 +86,7 @@ public class TestBase {
 				Integer.parseInt(config.getProperty("implicitWait")),
 				TimeUnit.MILLISECONDS);
 		wait = new WebDriverWait(driver, 5);
+		System.setProperty("org.uncommons.reportng.escape-output", "false");
 
 	}
 
@@ -160,8 +161,8 @@ public class TestBase {
 			TestUtil.cuptureScreenshot();
 
 			// ReportNG
-			Reporter.log(
-					"<br>Verification failure: " + t.getMessage() + "<br>");
+			Reporter.log("<br>" + "Verification failure: " + t.getMessage()
+					+ "<br>");
 			Reporter.log("<a target=\"_blank\" href="
 					+ System.getProperty("user.dir") + "\\screenshots\\"
 					+ TestUtil.screenshotName + ">" + TestUtil.screenshotName
@@ -169,11 +170,11 @@ public class TestBase {
 			Reporter.log("<a target=\"_blank\" href="
 					+ System.getProperty("user.dir") + "\\screenshots\\"
 					+ TestUtil.screenshotName + "><img src="
-					+  System.getProperty("user.dir") + "\\screenshots\\"
+					+ System.getProperty("user.dir") + "\\screenshots\\"
 					+ TestUtil.screenshotName
 					+ " height=200 width=400></img></a>");
-			// Extent Report
 
+			// Extent Report
 			test.log(LogStatus.FAIL, "Verification failure: " + t.getMessage());
 			test.log(LogStatus.FAIL,
 					test.addScreenCapture(System.getProperty("user.dir")
@@ -182,22 +183,24 @@ public class TestBase {
 		}
 
 	}
-	
+
 	public void select(String locator, String value) {
-				
+
 		if (locator.endsWith("_css")) {
-			dropdown = driver.findElement(By.cssSelector(locators.getProperty(locator)));
+			dropdown = driver
+					.findElement(By.cssSelector(locators.getProperty(locator)));
 		} else if (locator.endsWith("_xpath")) {
-			dropdown = driver.findElement(By.xpath(locators.getProperty(locator)));
+			dropdown = driver
+					.findElement(By.xpath(locators.getProperty(locator)));
 		} else if (locator.endsWith("_id")) {
 			dropdown = driver.findElement(By.id(locators.getProperty(locator)));
 		}
-		
+
 		Select select = new Select(dropdown);
 		select.selectByVisibleText(value);
-		test.log(LogStatus.INFO,
-				"Selected from dropdown: " + locator + ", picked option: " + value);
-		
+		test.log(LogStatus.INFO, "Selected from dropdown: " + locator
+				+ ", picked option: " + value);
+
 	}
 
 	public static WebDriver driver;

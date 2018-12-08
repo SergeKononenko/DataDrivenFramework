@@ -28,7 +28,7 @@ public class CustomListeners extends TestBase implements ITestListener {
 
 	public void onTestFailure(ITestResult result) {
 
-		System.setProperty("org.uncommons.reportng.escape-output", "false");
+		
 		TestUtil.cuptureScreenshot();
 
 		// Extent log

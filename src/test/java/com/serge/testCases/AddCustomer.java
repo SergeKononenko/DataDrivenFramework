@@ -14,10 +14,15 @@ public class AddCustomer extends TestBase {
 	public void addCustomer(String firstName, String lastName,
 			String postalCode, String alertText) throws InterruptedException {
 
+		String post = null;
+		if (postalCode.endsWith(".0")) 
+		post = postalCode.substring(0, postalCode.length()-2);
+//		if (firstName.equals("")) return; 
+		
 		click("AddCustomerTab_css");
 		type("FirstNameInput_xpath", firstName);
 		type("LastNameInput_xpath", lastName);
-		type("PostalCode_xpath", postalCode);
+		type("PostalCode_xpath", post);
 		click("AddCustomerButton_css");
 		
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
@@ -28,6 +33,7 @@ public class AddCustomer extends TestBase {
 		//Reporter.log("Success!"); //ReportNG Log
 		
 		//Assert.fail("Not Real FAil");
+		//Thread.sleep(100);
 		
 		
 		
