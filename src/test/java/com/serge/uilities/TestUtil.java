@@ -36,9 +36,8 @@ public class TestUtil extends TestBase {
 		}
 
 	}
-	
-	
-	@DataProvider(name="dp")
+
+	@DataProvider(name = "dp")
 	public static Object[][] getData(Method m) {
 
 		String sheetName = m.getName();
@@ -60,6 +59,29 @@ public class TestUtil extends TestBase {
 
 		return data;
 	}
-	
+
+	public static boolean isTestRunnable(String testName, ExcelReader excel) {
+
+		String sheetName = "TestSuite";
+
+		int rows = excel.getRowCount(sheetName);
+
+		for (int rNum = 2; rNum <= rows; rNum++) {
+
+			String testCase = excel.getCellData(sheetName, "TCID", rNum);
+			if (testCase.equalsIgnoreCase(testName)) {
+				String runMode = excel.getCellData(sheetName, "RunMode", rNum);
+				if (runMode.equalsIgnoreCase("y")) 
+					return true;
+				else 
+					return false;
+				
+			}
+
+		}
+
+		return false;
+
+	}
 
 }
