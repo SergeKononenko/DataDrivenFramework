@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Hashtable;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -44,15 +45,22 @@ public class TestUtil extends TestBase {
 		int rows = excel.getRowCount(sheetName);
 		int cols = excel.getColumnCount(sheetName);
 
-		Object[][] data = new Object[rows - 1][cols];
+		Object[][] data = new Object[rows - 1][1];
+
+		Hashtable<String, String> table = null;
 
 		for (int rowNum = 2; rowNum <= rows; rowNum++) {
+
+			table = new Hashtable<String, String>();
 			for (int colNum = 0; colNum < cols; colNum++) {
 
-				// data[0][0]
-				data[rowNum - 2][colNum] = excel.getCellData(sheetName, colNum,
-						rowNum);
+				table.put(excel.getCellData(sheetName, colNum, 1),
+						excel.getCellData(sheetName, colNum, rowNum));
 
+				// data[0][0]
+//				 data[rowNum - 2][colNum] = excel.getCellData(sheetName,
+//				 colNum,rowNum);
+				data[rowNum - 2][0] = table;
 			}
 
 		}
@@ -71,11 +79,11 @@ public class TestUtil extends TestBase {
 			String testCase = excel.getCellData(sheetName, "TCID", rNum);
 			if (testCase.equalsIgnoreCase(testName)) {
 				String runMode = excel.getCellData(sheetName, "RunMode", rNum);
-				if (runMode.equalsIgnoreCase("y")) 
+				if (runMode.equalsIgnoreCase("y"))
 					return true;
-				else 
+				else
 					return false;
-				
+
 			}
 
 		}
