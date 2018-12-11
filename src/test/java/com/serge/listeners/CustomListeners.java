@@ -57,15 +57,16 @@ public class CustomListeners extends TestBase
 		// ReportNg
 		Reporter.log("<br><br>Click to see Screenshot ... ");
 
-		Reporter.log(
-				"<a target=\"_blank\" href=" + System.getProperty("user.dir")
-						+ "\\screenshots\\" + TestUtil.screenshotName + ">"
-						+ TestUtil.screenshotName + "</a><br>");
 		Reporter.log("<a target=\"_blank\" href="
-				+ System.getProperty("user.dir") + "\\screenshots\\"
-				+ TestUtil.screenshotName + "><img src="
-				+ System.getProperty("user.dir") + "\\screenshots\\"
-				+ TestUtil.screenshotName + " height=200 width=400></img></a>");
+				+ System.getProperty("user.dir")
+				+ "\\target\\surefire-reports\\html\\" + TestUtil.screenshotName
+				+ ">" + TestUtil.screenshotName + "</a><br>");
+		Reporter.log("<a target=\"_blank\" href="
+				+ System.getProperty("user.dir")
+				+ "\\target\\surefire-reports\\html\\" + TestUtil.screenshotName
+				+ "><img src=" + System.getProperty("user.dir")
+				+ "\\target\\surefire-reports\\html\\" + TestUtil.screenshotName
+				+ " height=200 width=400></img></a>");
 
 		rep.endTest(test);
 		rep.flush();

@@ -74,12 +74,12 @@ public class TestBase {
 		}
 
 		config.setProperty("browser", browser);
-		
+
 		if (config.getProperty("browser").equals("firefox")) {
 
-			System.setProperty("webdriver.gecko.driver",
-					System.getProperty("user.dir")
-							+ "\\src\\test\\resources\\executables\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", System
+					.getProperty("user.dir")
+					+ "\\src\\test\\resources\\executables\\geckodriver.exe");
 			driver = new FirefoxDriver();
 		} else if (config.getProperty("browser").equals("chrome")) {
 
@@ -181,25 +181,25 @@ public class TestBase {
 			Reporter.log("<br>" + "Verification failure: " + t.getMessage()
 					+ "<br>");
 			Reporter.log("<a target=\"_blank\" href="
-					+ System.getProperty("user.dir") + "\\screenshots\\"
+					+ System.getProperty("user.dir")
+					+ "\\target\\surefire-reports\\html\\"
 					+ TestUtil.screenshotName + ">" + TestUtil.screenshotName
 					+ "</a><br>");
 			Reporter.log("<a target=\"_blank\" href="
-					+ System.getProperty("user.dir") + "\\screenshots\\"
+					+ System.getProperty("user.dir")
+					+ "\\target\\surefire-reports\\html\\"
 					+ TestUtil.screenshotName + "><img src="
-					+ System.getProperty("user.dir") + "\\screenshots\\"
+					+ System.getProperty("user.dir")
+					+ "\\target\\surefire-reports\\html\\"
 					+ TestUtil.screenshotName
 					+ " height=200 width=400></img></a>");
 
 			// Extent Report
 			test.log(LogStatus.FAIL, "Verification failure: " + t.getMessage());
 			test.log(LogStatus.FAIL,
-					test.addScreenCapture(System.getProperty("user.dir")
-							+ "\\screenshots\\" + TestUtil.screenshotName));
+					test.addScreenCapture(TestUtil.screenshotName));
 			test.log(LogStatus.FAIL,
-					"<a target=\"_blank\" href="
-							+ System.getProperty("user.dir") + "\\screenshots\\"
-							+ TestUtil.screenshotName + ">"
+					"<a target=\"_blank\" href=" + TestUtil.screenshotName + ">"
 							+ TestUtil.screenshotName + "</a><br>");
 
 		}
