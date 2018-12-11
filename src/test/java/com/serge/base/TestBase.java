@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -60,11 +61,24 @@ public class TestBase {
 			e.printStackTrace();
 		}
 
+		if (System.getenv("browser") != null
+				&& !System.getenv("browser").isEmpty()) {
+
+			browser = System.getenv("browser");
+
+		} else {
+
+			browser = config.getProperty("browser");
+
+		}
+
+		config.setProperty("browser", browser);
+		
 		if (config.getProperty("browser").equals("firefox")) {
 
 			System.setProperty("webdriver.gecko.driver",
 					System.getProperty("user.dir")
-							+ "\\src\\test\\resources\\executables\\gecko.exe");
+							+ "\\src\\test\\resources\\executables\\geckodriver.exe");
 			driver = new FirefoxDriver();
 		} else if (config.getProperty("browser").equals("chrome")) {
 
@@ -77,7 +91,7 @@ public class TestBase {
 			System.setProperty("webdriver.ie.driver", System
 					.getProperty("user.dir")
 					+ "\\src\\test\\resources\\executables\\IEDriverServer.exe");
-			driver = new ChromeDriver();
+			driver = new InternetExplorerDriver();
 		}
 
 		driver.get(config.getProperty("mainPageURL"));
@@ -204,6 +218,7 @@ public class TestBase {
 	}
 
 	public static WebDriver driver;
+	public static String browser;
 	public static Properties config;
 	public static Properties locators;
 	public static FileInputStream fis;
