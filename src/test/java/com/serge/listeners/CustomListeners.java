@@ -107,7 +107,7 @@ public class CustomListeners extends TestBase
 		try {
 			messageBody = "Test Suite Finished @ - " + new Date() + "\nhttp://"
 					+ InetAddress.getLocalHost().getHostAddress()
-					+ ":8080/job/DataDrivenLiveProject/Extent_Reports/";
+					+ ":8080/job/DataDrivenProjectLive/Extent_20Report/";
 		} catch (UnknownHostException e) {
 
 			e.printStackTrace();

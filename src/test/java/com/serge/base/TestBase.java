@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -95,13 +96,15 @@ public class TestBase {
 		}
 
 		driver.get(config.getProperty("mainPageURL"));
-		// driver.manage().window().maximize();
+		driver.manage().window().setSize(new Dimension(800, 600));
+		;
 		driver.manage().timeouts().implicitlyWait(
 				Integer.parseInt(config.getProperty("implicitWait")),
 				TimeUnit.MILLISECONDS);
 		wait = new WebDriverWait(driver, 5);
 		System.setProperty("org.uncommons.reportng.escape-output", "false");
-
+		Assert.assertTrue(isElementPresent("mainHeader_css"),
+				"Was not able to Open Main page");
 	}
 
 	@AfterSuite
@@ -193,6 +196,11 @@ public class TestBase {
 			test.log(LogStatus.FAIL,
 					test.addScreenCapture(System.getProperty("user.dir")
 							+ "\\screenshots\\" + TestUtil.screenshotName));
+			test.log(LogStatus.FAIL,
+					"<a target=\"_blank\" href="
+							+ System.getProperty("user.dir") + "\\screenshots\\"
+							+ TestUtil.screenshotName + ">"
+							+ TestUtil.screenshotName + "</a><br>");
 
 		}
 
